@@ -4,6 +4,7 @@ import { ProductCard } from "../components/ProductCard";
 import { useCart } from "../contexts/CartContext";
 import { Toast, useToast, Spinner } from "../components/Toast";
 import { API } from "../config";
+import { DEFAULT_PRODUCTS } from "../constants";
 
 export default function HomePage({ setPage, onProductClick }) {
   const [trendingProducts, setTrendingProducts] = useState([]);
@@ -13,16 +14,30 @@ export default function HomePage({ setPage, onProductClick }) {
   const cartNames = cart.map((i) => i.item_name);
 
   useEffect(() => {
-    fetch(`${API}/products/trending`)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+    fetch(`${API}/products/trending`, { signal: controller.signal })
       .then((r) => r.json())
       .then((d) => {
-        if (d.success) setTrendingProducts(d.products);
+        if (d.success && d.products && d.products.length > 0) {
+          setTrendingProducts(d.products);
+        } else {
+          setTrendingProducts(DEFAULT_PRODUCTS.slice(0, 12));
+        }
       })
-      .catch((err) => {
-        console.error("Error fetching trending products:", err);
-        setTrendingProducts([]);
+      .catch(() => {
+        setTrendingProducts(DEFAULT_PRODUCTS.slice(0, 12));
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        clearTimeout(timeoutId);
+        setLoading(false);
+      });
+
+    return () => {
+      clearTimeout(timeoutId);
+      controller.abort();
+    };
   }, []);
 
   const handleAdd = (product) => {

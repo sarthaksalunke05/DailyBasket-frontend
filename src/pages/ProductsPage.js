@@ -3,7 +3,7 @@ import { useCart } from "../contexts/CartContext";
 import { Toast, useToast } from "../components/Toast";
 import { Spinner } from "../components/Toast";
 import { Icons } from "../components/Icons";
-import { CATEGORY_META } from "../constants";
+import { CATEGORY_META, DEFAULT_PRODUCTS } from "../constants";
 import { API } from "../config";
 import { ProductCard } from "../components/ProductCard";
 
@@ -17,26 +17,54 @@ export default function ProductsPage({ category, searchQuery, setPage, onProduct
   const meta = CATEGORY_META[category] || {};
   const cartNames = cart.map((i) => i.item_name);
 
+  const getFallbackProducts = useCallback(() => {
+    let list = DEFAULT_PRODUCTS;
+    if (category) {
+      list = list.filter((p) => p.category.toLowerCase() === category.toLowerCase());
+    }
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase().trim();
+      list = list.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          (p.brand && p.brand.toLowerCase().includes(q)) ||
+          (p.description && p.description.toLowerCase().includes(q))
+      );
+    }
+    const perPage = 12;
+    const startIndex = (currentPage - 1) * perPage;
+    const paginated = list.slice(startIndex, startIndex + perPage);
+    setProducts(paginated);
+    setTotalPages(Math.ceil(list.length / perPage) || 1);
+  }, [category, searchQuery, currentPage]);
+
   const fetchProducts = useCallback(() => {
     setLoading(true);
     let url = `${API}/products?page=${currentPage}&limit=12`;
     if (category) url += `&category=${category}`;
     if (searchQuery) url += `&search=${encodeURIComponent(searchQuery)}`;
 
-    fetch(url)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+    fetch(url, { signal: controller.signal })
       .then((r) => r.json())
       .then((d) => {
-        if (d.success) {
+        if (d.success && d.products && d.products.length > 0) {
           setProducts(d.products);
           setTotalPages(d.pages || 1);
+        } else {
+          getFallbackProducts();
         }
       })
-      .catch((err) => {
-        console.error("Error fetching products:", err);
-        setProducts([]);
+      .catch(() => {
+        getFallbackProducts();
       })
-      .finally(() => setLoading(false));
-  }, [category, currentPage, searchQuery]);
+      .finally(() => {
+        clearTimeout(timeoutId);
+        setLoading(false);
+      });
+  }, [category, currentPage, searchQuery, getFallbackProducts]);
 
   useEffect(() => { setCurrentPage(1); }, [category, searchQuery]);
   useEffect(() => { fetchProducts(); }, [fetchProducts]);
