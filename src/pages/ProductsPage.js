@@ -31,6 +31,10 @@ export default function ProductsPage({ category, searchQuery, setPage, onProduct
           setTotalPages(d.pages || 1);
         }
       })
+      .catch((err) => {
+        console.error("Error fetching products:", err);
+        setProducts([]);
+      })
       .finally(() => setLoading(false));
   }, [category, currentPage, searchQuery]);
 

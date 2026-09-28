@@ -360,7 +360,7 @@ export default function AdminPage({ setPage }) {
                 <input type="file" hidden accept=".csv" onChange={handleBulkUpload} />
               </label>
             </div>
-            
+
             <button className="btn-primary" onClick={() => setProductModal("new")}>
               {Icons.plus} Add Product
             </button>

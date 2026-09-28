@@ -20,11 +20,14 @@ export default function AuthPage({ setPage, isAdminMode = false }) {
             setAdminExists(d.exists);
             if (!d.exists) setMode("register");
           }
+        })
+        .catch((err) => {
+          console.error("Error checking admin:", err);
         });
     }
   }, [isAdminMode]);
 
-  const usernameValid = /^[a-zA-Z][a-zA-Z0-9]{2,31}/.test(username);
+  const usernameValid = /^[a-zA-Z][a-zA-Z0-9\s._-]{2,31}/.test(username);
   const passwordValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password);
 
   const handleSubmit = async () => {

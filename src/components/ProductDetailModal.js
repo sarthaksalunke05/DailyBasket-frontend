@@ -54,12 +54,12 @@ export function ProductDetailModal({ product, onClose, onAdd, inCart }) {
 
           {user?.role !== "admin" && (
             <button
-              className={`btn-primary ${inCart ? "in-cart" : ""} ${product.stock === 0 ? "oos-btn" : ""}`}
-              style={{ width: "100%", marginTop: "auto", padding: "16px", opacity: product.stock === 0 ? 0.5 : 1, cursor: product.stock === 0 ? "not-allowed" : "pointer" }}
+              className={`add-btn-pill ${inCart ? "in-cart" : ""} ${product.stock === 0 ? "oos-btn" : ""}`}
+              style={{ width: "100%", marginTop: "auto", padding: "14px 20px" }}
               onClick={() => !inCart && product.stock > 0 && onAdd(product)}
               disabled={inCart || product.stock === 0}
             >
-              {product.stock === 0 ? "Out of Stock" : inCart ? "Already in Cart ✓" : `Add to Cart • ₹${product.price}`}
+              {product.stock === 0 ? "Out of Stock" : inCart ? "Already in Cart ✓" : `Add to cart • ₹${product.price}`}
             </button>
           )}
           

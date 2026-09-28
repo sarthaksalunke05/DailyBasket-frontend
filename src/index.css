@@ -248,19 +248,62 @@ body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--
 .product-name { font-weight: 600; font-size: 0.875rem; line-height: 1.3; }
 .product-cat { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
 .product-price { font-size: 1rem; font-weight: 700; color: var(--black); }
-.add-btn {
-  width: 100%; padding: 9px 12px;
-  background: var(--white); color: var(--black);
-  border: 1.5px solid var(--black); border-radius: var(--radius-sm);
-  cursor: pointer; font-size: 0.82rem; font-weight: 600;
-  font-family: 'Inter', sans-serif; transition: all var(--transition); margin-top: auto;
+.add-btn, .add-btn-pill {
+  width: 100%;
+  padding: 10px 18px;
+  background: #FFD814;
+  color: #0F1111;
+  border: 1px solid #FCD200;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 500;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: all 0.18s ease;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(213, 162, 0, 0.2);
+  user-select: none;
+  line-height: 1.2;
 }
-.add-btn:hover:not(:disabled) { background: var(--black); color: var(--white); }
-.add-btn.in-cart { background: var(--gray-100); color: var(--text-muted); border-color: var(--border); cursor: default; }
-.add-btn.oos-btn, .add-btn[disabled] {
-  background: var(--gray-100); color: var(--text-light);
-  border-color: var(--border); cursor: not-allowed;
-  opacity: 0.7;
+
+.add-btn:hover:not(:disabled),
+.add-btn-pill:hover:not(:disabled) {
+  background: #F7CA00;
+  border-color: #F2C200;
+  box-shadow: 0 2px 5px rgba(213, 162, 0, 0.4);
+}
+
+.add-btn:active:not(:disabled),
+.add-btn-pill:active:not(:disabled) {
+  background: #F0B800;
+  box-shadow: 0 1px 3px rgba(213, 162, 0, 0.4);
+  transform: scale(0.99);
+}
+
+.add-btn.in-cart,
+.add-btn-pill.in-cart {
+  background: #E8F5E9;
+  color: #2E7D32;
+  border: 1px solid #A5D6A7;
+  box-shadow: none;
+  cursor: default;
+  font-weight: 600;
+}
+
+.add-btn.oos-btn,
+.add-btn[disabled],
+.add-btn-pill.oos-btn,
+.add-btn-pill[disabled] {
+  background: #F0F2F2;
+  color: #888;
+  border: 1px solid #D5D9D9;
+  cursor: not-allowed;
+  opacity: 0.75;
+  box-shadow: none;
 }
 
 /* ─── OUT OF STOCK CARD ─────────────────────── */

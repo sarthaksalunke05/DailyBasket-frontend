@@ -18,6 +18,10 @@ export default function HomePage({ setPage, onProductClick }) {
       .then((d) => {
         if (d.success) setTrendingProducts(d.products);
       })
+      .catch((err) => {
+        console.error("Error fetching trending products:", err);
+        setTrendingProducts([]);
+      })
       .finally(() => setLoading(false));
   }, []);
 

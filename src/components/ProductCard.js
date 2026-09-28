@@ -53,7 +53,7 @@ export function ProductCard({ product, onAdd, inCart, onClick }) {
             disabled={inCart || isOutOfStock}
             title={isOutOfStock ? "This product is currently out of stock" : ""}
           >
-            {isOutOfStock ? "Out of Stock" : inCart ? "In Cart ✓" : "Add to Cart"}
+            {isOutOfStock ? "Out of Stock" : inCart ? "In Cart ✓" : "Add to cart"}
           </button>
         )}
       </div>
