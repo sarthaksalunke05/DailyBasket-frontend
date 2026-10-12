@@ -37,7 +37,7 @@ export default function Navbar({ page, setPage, onSearch, onCartClick }) {
       <nav className="nav">
         {/* Logo — hidden on mobile when searching */}
         <div className={`nav-logo ${mobileSearchOpen ? "mobile-hidden" : ""}`} onClick={() => go("home")}>
-          Shop<span>G</span>
+          DailyBasket<span></span>
         </div>
 
         {/* Search */}
@@ -76,7 +76,7 @@ export default function Navbar({ page, setPage, onSearch, onCartClick }) {
           <button className="nav-mobile-search-toggle" onClick={toggleMobileSearch} aria-label="Search">
             {Icons.search}
           </button>
-          
+
           {user ? (
             <>
               {user.role === "admin" && (

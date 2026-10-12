@@ -70,7 +70,7 @@ export default function AuthPage({ setPage, isAdminMode = false }) {
         <p className="auth-sub">
           {isAdminMode
             ? (adminExists ? "Login to admin dashboard" : "Register the first admin account")
-            : (mode === "login" ? "Login to your ShopG account" : "Join ShopG — it's free")}
+            : (mode === "login" ? "Login to your DailyBasket account" : "Join DailyBasket — it's free")}
         </p>
 
         {error && <div className="error-msg">{error}</div>}
@@ -131,7 +131,7 @@ export default function AuthPage({ setPage, isAdminMode = false }) {
             )
           )}
           {isAdminMode && adminExists && mode === "register" && (
-             <button onClick={() => setMode("login")}>Back to Login</button>
+            <button onClick={() => setMode("login")}>Back to Login</button>
           )}
         </div>
       </div>

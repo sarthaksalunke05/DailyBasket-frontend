@@ -59,7 +59,7 @@ export default function HomePage({ setPage, onProductClick }) {
         <h1 className="hero-title">
           Your everyday<br />
           essentials at<br />
-          <span>Shop</span>G
+          <span>DailyBasket</span>
         </h1>
         <p className="hero-sub">
           Groceries, spices, personal care &amp; more —<br />

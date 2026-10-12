@@ -6,7 +6,7 @@ export default function Footer({ setPage }) {
       <div className="footer-inner">
         <div className="footer-top">
           <div>
-            <div className="footer-brand-name">Shop<span>G</span></div>
+            <div className="footer-brand-name">DailyBasket<span></span></div>
             <p className="footer-tagline">
               Fresh groceries, spices &amp; daily<br />essentials — delivered fast.
             </p>
@@ -35,7 +35,7 @@ export default function Footer({ setPage }) {
         </div>
 
         <div className="footer-bottom">
-          <p className="footer-copy">© {new Date().getFullYear()} ShopG. All rights reserved.</p>
+          <p className="footer-copy">© {new Date().getFullYear()} DailyBasket. All rights reserved.</p>
           <p className="footer-copy" style={{ opacity: 0.6 }}>Made with care for everyday essentials.</p>
         </div>
       </div>
